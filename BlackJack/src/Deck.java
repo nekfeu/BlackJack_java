@@ -34,9 +34,37 @@ public class Deck {
 
     public void display() {
         for (Card card: cards) {
-            System.out.println(card.getValue() + " OF " + card.getSymbol());
+            if (card != null) {
+                System.out.println(card.toString());
+            }
+        }
+    }
+
+    public int getNumberOfRemainerCards() {
+        int index = 0;
+
+        for (Card card: cards) {
+            index += (card != null) ? 1 : 0;
         }
 
-        System.out.println("cards.length = " + cards.length);
+        return index;
+    }
+
+    public Card pop() {
+        int index = getNumberOfRemainerCards() - 1;
+
+        if (index < 0) {
+            System.out.println("Can't get cards anymore, please create a new deck");
+            return null;
+        }
+
+        while (cards[index] == null) {
+            index--;
+        }
+
+        Card card = cards[index];
+        cards[index] = null;
+
+        return card;
     }
 }

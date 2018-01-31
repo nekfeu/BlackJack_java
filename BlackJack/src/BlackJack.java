@@ -6,53 +6,68 @@ public class BlackJack {
     Deck deck = new Deck();
     Player player = new Player(false);
     Player dealer = new Player(true);
+    int currentBet = 0;
 
     public BlackJack() {
-        System.out.println("Creation du Black Jack");
+        System.out.println("\nWelcome in NekBlackJack!\n");
 
         deck.init();
-
         deck.shuffle();
         deck.shuffle();
 
-        deck.display();
-
-        System.out.println("");
         play();
     }
 
-    private int chooseBet() {
-        System.out.println("How much do you want to bet ?");
+    private void firstDistribute() {
+        player.receiveCard(deck.pop());
+        player.receiveCard(deck.pop());
+        player.displayHand();
 
-        Scanner scan = new Scanner(System.in);
-        String str = scan.next();
-        int bet = 0;
-
-        try {
-            bet = Integer.parseInt(str);
-        } catch(NumberFormatException e) {
-            System.out.println("Please enter a valid number");
-
-            return chooseBet();
-        }
-
-        return bet;
+        dealer.receiveCard(deck.pop());
+        dealer.displayHand();
     }
 
-    public void play() {
-        int currentBet = 0;
+    private void checkWinner() {
+        if ((player.getHandSum() > dealer.getHandSum() || dealer.getHandSum() > 21) && player.getHandSum() <= 21) {
+            System.out.println("You won");
 
+            player.earn(currentBet);
+        } else if ((player.getHandSum() <= dealer.getHandSum() || player.getHandSum() > 21) && dealer.getHandSum() <= 21) {
+            System.out.println("Dealer won");
+        }
+    }
+
+    private void play() {
         while (player.getMoney() > 0) {
 
-            if (!player.isDealer()) {
-                player.displayPortfolio();
+            player.displayPortfolio();
+            currentBet = player.chooseBet();
+            player.displayPortfolio();
 
-                currentBet = chooseBet();
-                System.out.println("currentBet = " + currentBet);
+            firstDistribute();
 
-            } else {
-                // dealer's turn;
+            while (player.getHandSum() < 21 && player.askedCard()) {
+                player.receiveCard(deck.pop());
+                player.displayHand();
             }
+
+            dealer.displayHand();
+            while (dealer.getHandSum() < 17 && player.getHandSum() < 21) {
+                System.out.println("Dealer is receiving a card ...");
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                dealer.receiveCard(deck.pop());
+                dealer.displayHand();
+            }
+
+            checkWinner();
+            player.clearHand();
+            dealer.clearHand();
         }
 
     }
