@@ -1,3 +1,10 @@
+/**
+ * CardValue enum
+ *
+ * @author Kevin Empociello
+ * @version 1.0
+ */
+
 public enum CardValue {
 
     ACE(1, "Ace"),

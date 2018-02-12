@@ -1,3 +1,11 @@
+/**
+ * Main
+ * Creating the Menu and managing the deck, game.
+ *
+ * @author Kevin Empociello
+ * @version 1.0
+ */
+
 public class Main {
 
     public static void main(String[] args) {
@@ -20,6 +28,7 @@ public class Main {
                         deck.init();
                     }
 
+                    deck.check();
                     for (int i = 0; i <= 3; i++) {
                         deck.pop();
                     }

@@ -1,12 +1,19 @@
 import java.util.Random;
 
+/**
+ * Deck class
+ *
+ * @author Kevin Empociello
+ * @version 1.0
+ */
+
 public class Deck {
 
     private Card[] cards = new Card[52];
 
-    public Deck() {
-    }
-
+    /**
+     * Init deck by creating the cards
+     */
     public void init() {
         int index = 0;
 
@@ -17,6 +24,9 @@ public class Deck {
         }
     }
 
+    /**
+     * Shuffle cards
+     */
     public void shuffle() {
         int index;
         Card switchTmp;
@@ -32,6 +42,9 @@ public class Deck {
         }
     }
 
+    /**
+     * Display the entire deck
+     */
     public void display() {
         for (Card card: cards) {
             if (card != null) {
@@ -40,6 +53,10 @@ public class Deck {
         }
     }
 
+    /**
+     * Get the number of remaining cards in the deck
+     * @return the number of remaining cards
+     */
     public int getNumberOfRemainerCards() {
         int index = 0;
 
@@ -50,6 +67,10 @@ public class Deck {
         return index;
     }
 
+    /**
+     * Deal a card
+     * @return the Card dealed
+     */
     public Card pop() {
         int index = getNumberOfRemainerCards() - 1;
 
@@ -66,5 +87,14 @@ public class Deck {
         cards[index] = null;
 
         return card;
+    }
+
+    /**
+     * Check the deck to renew it when it's needed
+     */
+    public void check() {
+        if (getNumberOfRemainerCards() < 20) {
+            init();
+        }
     }
 }

@@ -1,13 +1,39 @@
-import java.lang.reflect.Array;
-import java.util.Scanner;
+/**
+ * BlackJack class managing the entire game
+ *
+ * @author Kevin Empociello
+ * @version 1.0
+ */
+
 
 public class BlackJack {
 
-    Deck deck = new Deck();
+    /**
+     * The deck containing the cards to play BlackJack
+     * @see Deck
+     */
+    public Deck deck = new Deck();
+
+    /**
+     * The player which represent the user who is playing
+     * @see Player
+     */
     Player player = new Player(false);
+
+    /**
+     * The player which represent the IA (computer)
+     * @see Player
+     */
     Player dealer = new Player(true);
+
+    /**
+     * Current bet chosen by the player
+     */
     int currentBet = 0;
 
+    /**
+     * Initialize the game (init deck, shuffle and start the game)
+     */
     public BlackJack() {
         System.out.println("\nWelcome in NekBlackJack!\n");
 
@@ -18,6 +44,9 @@ public class BlackJack {
         play();
     }
 
+    /**
+     * Initialize the player's hand and the IA's hand
+     */
     private void firstDistribute() {
         player.receiveCard(deck.pop());
         player.receiveCard(deck.pop());
@@ -27,6 +56,9 @@ public class BlackJack {
         dealer.displayHand();
     }
 
+    /**
+     * Check if the computer won or if the player won and display
+     */
     private void checkWinner() {
         if ((player.getHandSum() > dealer.getHandSum() || dealer.getHandSum() > 21) && player.getHandSum() <= 21) {
             System.out.println("You won");
@@ -37,6 +69,10 @@ public class BlackJack {
         }
     }
 
+    /**
+     * Play loop
+     * Display porfolio, choose bet, ask a card or not
+     */
     private void play() {
         while (player.getMoney() > 0) {
 
@@ -68,7 +104,7 @@ public class BlackJack {
             checkWinner();
             player.clearHand();
             dealer.clearHand();
+            deck.check();
         }
-
     }
 }

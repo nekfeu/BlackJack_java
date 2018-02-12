@@ -1,10 +1,17 @@
 import java.util.Scanner;
 
+/**
+ * Menu class
+ *
+ * @author Kevin Empociello
+ * @version 1.0
+ */
+
 public class Menu {
 
-    public Menu() {
-    }
-
+    /**
+     * Display the menu
+     */
     public void display() {
         System.out.println("");
 
@@ -17,6 +24,11 @@ public class Menu {
         System.out.println("\nWhat is your choice ?");
     }
 
+    /**
+     * Get the user input
+     *
+     * @return the index of the menu selected
+     */
     public int getUserChoice() {
         Scanner scan = new Scanner(System.in);
         String str = scan.next();
